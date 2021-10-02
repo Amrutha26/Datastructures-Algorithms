@@ -1,0 +1,29 @@
+class Solution {
+        public int romanToInt(String s) {
+        int num = 0;
+        Stack<Character> st= new Stack<>();
+        char[] arr = s.toCharArray();
+        Map<Character, Integer> map = new HashMap<>();
+        map.put('I', 1);
+        map.put('V', 5);
+        map.put('X', 10);
+        map.put('L', 50);
+        map.put('C', 100);
+        map.put('D', 500);
+        map.put('M', 1000);
+        int diff = 0;
+        for(char ch:arr) {
+            int val = map.get(ch);
+            while(!st.isEmpty() && map.get(st.peek()) < val) {
+                diff +=map.get(st.pop());
+            }
+            st.push(ch);
+        }
+        
+        while(!st.isEmpty()) {
+            num += map.get(st.pop());
+        }
+        
+        return num-diff;
+    }
+}
